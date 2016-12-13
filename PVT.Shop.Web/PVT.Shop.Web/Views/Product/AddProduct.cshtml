@@ -1,0 +1,72 @@
+﻿@model PVT.Shop.Infrastructure.Common.ViewModels.ProductViewModel
+
+@{
+    ViewBag.Title = "Add product";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container">
+    <div class="panel panel-default">
+        <div class="panel-heading">Add Product</div>
+        <div class="panel-body">
+            <div class="input-group col-xs-12">
+                @using (Html.BeginForm("AddProduct", "Product", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Current.Name)
+                        @Html.TextBoxFor(m => m.Current.Name, new { @class = "form-control", @style = "max-width: none" })
+                        @Html.ValidationMessageFor(m => m.Current.Name)
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Current.Count)
+                        @Html.TextBoxFor(m => m.Current.Count, new { @class = "form-control", @style = "max-width: none", @type = "number" })
+                        @Html.ValidationMessageFor(m => m.Current.Count)
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Current.Price)
+                        @Html.TextBoxFor(m => m.Current.Price, new { @class = "form-control", @style = "max-width: none", @type = "decimal" })
+                        @Html.ValidationMessageFor(m => m.Current.Price)
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Current.CurrentCategory)
+                        @Html.DropDownListFor(m => m.Current.CurrentCategoryId, new SelectList(Model.CurrentCategories, "Id", "Name"), new { @class = "form-control", @style = "max-width: none" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Current.CurrentStorage)
+                        @Html.DropDownListFor(m => m.Current.CurrentStorageId, new SelectList(Model.CurrentStorages, "Id", "Name"), new { @class = "form-control", @style = "max-width: none" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Current.Display)
+                        @Html.CheckBoxFor(model => model.Current.Display, new { @class = "checkbox", @checked = true })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Current.Description)
+                        @Html.TextAreaFor(m => m.Current.Description, new { @class = "form-control", @style = "max-width: none; resize: none", @rows = 10 })
+                        @Html.ValidationMessageFor(m => m.Current.Description)
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Current.Image)
+                        @Html.TextBoxFor(m => m.Current.Image, new { type = "text", @class = "form-control", })
+                        @Html.ValidationMessageFor(m => m.Current.Image)
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success">Add Product</button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

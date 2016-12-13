@@ -1,0 +1,49 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.spoiler-content{
+display:none;  /**скрываем блок контента спойлера**/
+padding:15px 20px; /**добавляем внутренний отступ**/
+border:1px solid #ccc; /**рамка блока контента спойлера**/
+margin-top:5px; /**отступ сверху**/
+background:#f4f4f4; /**фон блока контента спойлера**/
+}
+/**Стили блока оборачивающего каждый блок**/
+.spoiler-block{
+margin-top:10px; 
+}
+
+/**Стили кнопки спойлера**/
+.spoiler-title {
+border:1px solid #B9B9B9;
+background: #ccc;/**обычный фон для браузеров, которые не поддерживают градиент**/
+background:linear-gradient(#e4e3e3, #f4f4f4);/**градиентный фон**/
+padding:10px;/**внутренний отступ**/
+text-decoration:none;/**убираем подчёркивание у ссылки**/
+color:#000; /**цвет текста ссылки**/
+display:block; /**делаем ссылку на всю ширину**/
+}
+.spoiler-title .spoiler-explore {
+}

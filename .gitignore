@@ -1,0 +1,14 @@
+*.suo
+PVT.Shop.Web/packages/
+PVT.Shop.Web/PVT.Shop.Web/bin/
+PVT.Shop.Web/PVT.Shop.Web/obj/
+PVT.Shop.Web/.vs/
+*.orig
+PVT.Shop.Web/PVT.Shop.Web/StyleCop.Cache
+PVT.Shop.Web/PVT.Shop.Infrastructure/bin/
+PVT.Shop.Web/PVT.Shop.Infrastructure/obj/
+PVT.Shop.Web/PVT.Shop.Web/App_Data/PVT.Shop.Web.DAL.ShopContext.mdf
+PVT.Shop.Web/PVT.Shop.Web/App_Data/PVT.Shop.Web.DAL.ShopContext_log.ldf
+*.user
+archive.zip
+PVT.Shop.Web/PVT.Shop.Web/App_Data/log.txt

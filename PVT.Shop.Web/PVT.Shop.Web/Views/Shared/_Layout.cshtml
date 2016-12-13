@@ -1,0 +1,99 @@
+﻿@using PVT.Shop.Web.Authentication
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title  PVT.Shop</title>
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Pvt.Shop", "Index", "Catalog", null, new { @class = "navbar-brand", id = 100 })
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+
+                    <li class="dropdown">
+                        @Html.Action("Catalog", "Category")
+                    </li>
+
+                    <li>@Html.ActionLink("About project", "About", "Home")</li>
+                    @if (Request.IsAuthenticated)
+                    {
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Advanced Features<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                @if (HttpContext.Current.User.IsInRole("Seller"))
+                                {
+                                    <li>@Html.ActionLink("My Products", "Index", "Product")</li>
+                                }
+
+                                @if (HttpContext.Current.User.IsInRole("Admin"))
+                                {
+                                    <li>@Html.ActionLink("Shop Products", "Index", "Product")</li>
+                                    <li>@Html.ActionLink("Shop Storages", "Index", "Storage")</li>
+                                    <li>@Html.ActionLink("Shop Categories", "Index", "Category")</li>
+                                    <li>@Html.ActionLink("Shop Users", "Users", "User")</li>
+                                    <li>@Html.ActionLink("Shop Orders", "Index", "Order")</li>
+                                    <li class="divider"></li>
+                                    <li>@Html.ActionLink("Onliner Parser", "Tools", "Account")</li>
+                                }
+
+                                @if (HttpContext.Current.User.IsInRole("User"))
+                                {
+                                    <li>@Html.ActionLink("My Orders", "Index", "Order")</li>
+
+                                }
+                            </ul>
+                        </li>
+                    }
+                </ul>
+                <form class="navbar-form navbar-left" action="@Url.Action("Search", "Catalog")">
+                    <div class="form-group">
+                        <input type="text" name="q" id="q" class="form-control" placeholder="Search">
+                    </div>
+                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                </form>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/Basket/Index"><i class="fa fa-shopping-cart"></i> Cart (0)</a></li>
+
+                    <li class="dropdown">
+                        @if (Request.IsAuthenticated)
+                        {
+                            var userPrincipal = User as UserPrincipal;
+                            if (userPrincipal != null)
+                            {
+                                @Html.Action("UserInfo", "Account", new { id = userPrincipal.Id })
+                            }
+                        }
+                        else
+                        {
+                            @Html.Action("NavbarLogin", "Account")
+                        }
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container body-content">
+        @RenderBody()
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/app")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,119 @@
+﻿@using System.Web.Mvc.Html
+@using PagedList.Mvc
+@using PVT.Shop.Infrastructure.Common.Enums
+@using PVT.Shop.Web.Extensions
+@model PagedList.IPagedList<PVT.Shop.Infrastructure.Common.User>
+
+@{
+    ViewBag.Title = "List all users";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>All Users</title>
+</head>
+<body>
+    <h2>All users</h2>
+    <hr />
+
+<p>
+    @Html.ActionLink("Create New", "RegistrationUser", new { }, new { @class = "btn btn-primary" })
+</p>
+
+@using (Html.BeginForm("Users", "User", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    <div class="form-group">
+        @Html.Label("Find by Role:", new { @class = "col-md-4 control-label" })
+        <div class="col-md-4">
+            @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control input-md" })
+        </div>
+    <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-search"></span> Search </button>
+</div>
+}
+
+    <table class="table table-hover">
+        <thead>
+        <th>
+            @Html.ActionLink("ID", "Users", "User", new { sortOrder = ViewBag.SortBy == SortEnumByUserProp.Id ? "IdDesc" : "Id", currentFilter = ViewBag.CurrentFilter }, null)
+        </th>
+        <th>
+            @Html.ActionLink("Login", "Users", "User", new { sortOrder = ViewBag.SortBy == SortEnumByUserProp.Login ? "LoginDesc" : "Login", currentFilter = ViewBag.CurrentFilter }, null)
+        </th>
+        <th>
+            @Html.ActionLink("Email", "Users", "User", new { sortOrder = ViewBag.SortBy == SortEnumByUserProp.Email ? "EmailDesc" : "Email", currentFilter = ViewBag.CurrentFilter }, null)
+        </th>
+        <th>
+            @Html.ActionLink("Birthday", "Users", "User", new { sortOrder = ViewBag.SortBy == SortEnumByUserProp.Birthday ? "BirthdayDesc" : "Birthday", currentFilter = ViewBag.CurrentFilter }, null)
+        </th>
+        <th>
+            @Html.ActionLink("FirstName", "Users", "User", new { sortOrder = ViewBag.SortBy == SortEnumByUserProp.FirstName ? "FirstNameDesc" : "FirstName", currentFilter = ViewBag.CurrentFilter }, null)
+        </th>
+        <th>
+            @Html.ActionLink("LastName", "Users", "User", new { sortOrder = ViewBag.SortBy == SortEnumByUserProp.LastName ? "LastNameDesc" : "LastName", currentFilter = ViewBag.CurrentFilter }, null)
+        </th>
+        <th>
+            @Html.ActionLink("Gender", "Users", "User", new { sortOrder = ViewBag.SortBy == SortEnumByUserProp.Gender ? "GenderDesc" : "Gender", currentFilter = ViewBag.CurrentFilter }, null)
+        </th>
+        <th>
+            @Html.ActionLink("Role", "Users", "User", new { sortOrder = ViewBag.SortBy == SortEnumByUserProp.Role ? "RoleDesc" : "Role", currentFilter = ViewBag.CurrentFilter }, null)
+        </th>
+        <th>
+            @Html.ActionLink("Phone", "Users", "User", new { sortOrder = ViewBag.SortBy == SortEnumByUserProp.Phone ? "PhoneDesc" : "Phone", currentFilter = ViewBag.CurrentFilter }, null)
+        </th>
+        <th></th>
+        </thead>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Login)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Birthday)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Gender)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Role)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phone)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "EditUser", new { id = item.Id }, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-primary" })
+                </td>
+            </tr>
+        }
+    </table>
+
+    @if (Model.PageCount > 1)
+    {
+        <div class="pager">
+            @Html.PagedListPager(Model, page => Url.Action("Users", new
+           {
+               page,
+               sortOrder = ViewBag.SortBy,
+               currentFilter = ViewBag.CurrentFilter
+           }))
+            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+        </div>
+    }
+</body>
+</html>

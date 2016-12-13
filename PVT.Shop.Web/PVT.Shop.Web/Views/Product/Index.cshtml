@@ -1,0 +1,113 @@
+﻿@using System.Web.Mvc.Html
+@using PagedList.Mvc
+@using PVT.Shop.Web.Extensions
+@model PagedList.IPagedList<PVT.Shop.Infrastructure.Common.Product>
+@{
+    ViewBag.Title = "Products";
+
+    string currentSort = ViewBag.CurrentSort;
+
+    if (string.IsNullOrEmpty(currentSort))
+    {
+        currentSort = "id";
+    }
+}
+
+<div class="container">
+    @Html.ActionLink("Add Product", "AddProduct", "Product", new { @class = "btn btn-primary btn-block" })
+    <hr class="divider" />
+    @if ((string)TempData["state"] == "true")
+    {
+        <div class="alert alert-success alert-dismissible fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            @TempData["message"]
+        </div>
+    }
+    
+    @if ((string)TempData["state"] == "false")
+    {
+        <div class="alert alert-danger alert-dismissible fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            @TempData["message"]
+        </div>
+    }
+    <div class="panel panel-default">
+        <div class="panel-heading" style="text-align: center"><strong>Products</strong></div>
+        <table class="table table-hover">
+            <thead class="active">
+            <tr>
+                <th>
+                    @Html.ActionLink("ID", "Index", Request.QueryString.ToRouteValueDictionary("sortOrder", (string)ViewBag.IdSortParam))
+                    @Html.SortIdentifier(currentSort, "id")
+                </th>
+                <th>
+                    @Html.ActionLink("Name", "Index", Request.QueryString.ToRouteValueDictionary("sortOrder", (string)ViewBag.NameSortParam))
+                    @Html.SortIdentifier(currentSort, "name")
+                </th>
+                <th>
+                    @Html.ActionLink("Count", "Index", Request.QueryString.ToRouteValueDictionary("sortOrder", (string)ViewBag.CountSortParam))
+                    @Html.SortIdentifier(currentSort, "count")
+                </th>
+                <th>
+                    @Html.ActionLink("Price", "Index", Request.QueryString.ToRouteValueDictionary("sortOrder", (string)ViewBag.PriceSortParam))
+                    @Html.SortIdentifier(currentSort, "price")
+                </th>
+                <th>Display in Catalog</th>
+                <th>Category</th>
+                <th>Storage</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var product in Model)
+            {
+                <tr id="@product.Id">
+                    <td>@product.Id</td>
+                    <td>@product.Name</td>
+                    <td>@product.Count</td>
+                    <td>@product.Price</td>
+                    <td>
+                        @{
+                            var display = product.Display ? "Yes" : "No";
+                        }
+
+                        @display
+                    </td>
+                    <td>@product.CurrentCategory.Name</td>
+                    <td>@product.CurrentStorage.Name</td>
+                    <td style="text-align: center">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="glyphicon glyphicon-edit"></span>
+                                Edit
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" style="text-align: left">
+                                <li>
+                                    @Html.ActionLink("Delete Product", "DeleteProduct", "Product", new { id = product.Id }, null)
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Edit product", "EditProduct", "Product", new { id = product.Id }, null)
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                    <td>
+                </tr>
+            }
+            </tbody>
+        </table>
+
+        @if (Model.PageCount > 1)
+        {
+            <div class="pager">
+                @Html.PagedListPager(Model, page => Url.Action("Index", new
+                                                                        {
+                                                                            page,
+                                                                            sortOrder = ViewBag.currentSort
+                                                                        }))
+                Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+            </div>
+        }
+    </div>
+</div>

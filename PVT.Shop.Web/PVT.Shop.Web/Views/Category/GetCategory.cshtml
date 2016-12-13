@@ -1,0 +1,72 @@
+﻿@using PVT.Shop.Infrastructure.Common
+@model Category
+@{
+    ViewBag.Title = "SubCategories";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    @if (Model != null)
+    {
+        <h2>
+            @Model.Name
+        </h2>
+        <hr class="divider"/>
+        <ol class="breadcrumb">
+            @{
+                var model = Model;
+                var path = new List<Category>();
+                while (model != null && model.Id != 0)
+                {
+                    path.Add(model);
+                    model = model.Parent;
+                }
+                for (var i = path.Count - 1; i >= 0; i--)
+                {
+                    <li>@Html.ActionLink(path[i].Name, "GetCategory", new { id = path[i].Id })</li>
+                }
+            }
+        </ol>
+
+        <table class="table table-responsive table-hover">
+            <thead>
+            <tr>
+                <th>Category</th>
+                <th>Description</th>
+                <th>State</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var category in Model.Childs)
+            {
+                <tr id="@category.Id">
+                    @if (category.Childs.Count != 0)
+                    {
+                        <td>@Html.ActionLink(category.Name, "GetCategory", new { id = category.Id })</td>
+
+                    }
+                    else
+                    {
+                        <td>@category.Name</td>
+                    }
+                    <td>@category.Description</td>
+                    <td>
+
+                        @(category.IsDeleted ? "Deleted" : string.Empty )
+                    </td>
+                    <td>
+                        @(category.IsDeleted ?
+                              Html.ActionLink("Restore", "UpdateCategoryState", new { id = category.Id, isDeleted = false }, new { @class = "btn btn-success col-lg-4" }) :
+                              Html.ActionLink("Delete", "UpdateCategoryState", new { id = category.Id, isDeleted = true }, new { @class = "btn btn-success col-lg-4" }) )
+                        @Html.ActionLink("Edit", "EditCategory", new { id = category.Id }, new { @class = "btn btn-danger col-lg-4" })
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+        <form role="form" class="form-inline">
+            @Html.ActionLink("New category", "EditCategory", new { id = 0, parentId = Model.Id }, new { @class = "btn btn-success" })
+        </form>
+    }
+</div>

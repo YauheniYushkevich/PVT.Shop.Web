@@ -1,0 +1,161 @@
+﻿@model PVT.Shop.Infrastructure.Common.ViewModels.RegistrationUserViewModel
+
+@{
+    ViewBag.Title = "Registration User";
+}
+
+@Styles.Render("~/Content/css")
+@Scripts.Render("~/bundles/modernizr")
+
+<div class="container">
+    <h3>@ViewBag.Title</h3>
+    <hr />
+
+    @if (ViewBag.SavedSuccessfullyMessage)
+    {
+        <div class="alert alert-success">
+            <strong> Your data was successfully saved! </strong>
+        </div>
+    }
+
+    @if (ViewBag.ErrorSavingMessage)
+    {
+        <div class="alert alert-danger" style="color: #b94a48">
+            <strong> Check out your data! </strong>
+        </div>
+    }
+
+    @using (Html.BeginForm("RegistrationUser", "User", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        <div class="validation-summary-errors">
+            @Html.ValidationSummary()
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.CurrentUser.FirstName, new { @class = "col-md-4 control-label" })
+            <div class="col-md-4">
+                @Html.TextBoxFor(m => m.CurrentUser.FirstName, new { @class = "form-control input-md", placeholder = "Enter your First Name" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.CurrentUser.LastName, new { @class = "col-md-4 control-label" })
+            <div class="col-md-4">
+                @Html.TextBoxFor(m => m.CurrentUser.LastName, new { @class = "form-control input-md", placeholder = "Enter your Last Name" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.CurrentUser.Birthday, new { @class = "col-md-4 control-label" })
+            <div class="col-md-4">
+                @Html.TextBoxFor(m => m.CurrentUser.Birthday, new { @class = "form-control input-md", type = "Date" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.CurrentUser.Gender, new { @class = "col-md-4 control-label" })
+            <div class="col-md-4">
+                @Html.EnumDropDownListFor(m => m.CurrentUser.Gender, new { @class = "form-control input-md" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.CurrentUser.Email, new { @class = "col-md-4 control-label" })
+            <div class="col-md-4">
+                @Html.TextBoxFor(m => m.CurrentUser.Email, new { @class = "form-control input-md", placeholder = "Enter your Email adress" })
+            </div>
+        </div>
+
+         //// этот пункт регистрации доступен только АДМИНУ
+         if (Request.IsAuthenticated && User.IsInRole("Admin"))
+         {
+             <div class="form-group">
+                 @Html.LabelFor(m => m.CurrentUser.Role, new { @class = "col-md-4 control-label" })
+                 <div class="col-md-4">
+                     @Html.EnumDropDownListFor(m => m.CurrentUser.Role, new { @class = "form-control input-md" })
+                 </div>
+             </div>
+         }
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.CurrentUser.Login, new { @class = "col-md-4 control-label" })
+            <div class="col-md-4">
+                @Html.TextBoxFor(m => m.CurrentUser.Login, new { @class = "form-control input-md", placeholder = "Enter your Login Name"})
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.CurrentUser.Password, new { @class = "col-md-4 control-label" })
+            <div class="col-md-4">
+                @Html.PasswordFor(m => m.CurrentUser.Password, new { @class = "form-control input-md", placeholder = "Enter you Password"})
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.CurrentUser.PasswordConfirm, new { @class = "col-md-4 control-label" })
+            <div class="col-md-4">
+                @Html.PasswordFor(m => m.CurrentUser.PasswordConfirm, new { @class = "form-control input-md", placeholder = "Reenter your Password"})
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.CurrentUser.Address.Country.Name, new { @class = "col-md-4 control-label" })
+            <div class="col-md-4">
+                @Html.DropDownListFor(m => m.CurrentCountryId, Model.CurrentCountries.Select(c => new SelectListItem(){ Text = c.Name, Value = c.Id.ToString() }), new { @class = "form-control input-md" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.CurrentUser.Address.City, new { @class = "col-md-4 control-label" })
+            <div class="col-md-4">
+                @Html.TextBoxFor(m => m.CurrentUser.Address.City, new { @class = "form-control", placeholder = "Enter your City name" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.CurrentUser.Address.Postcode, new { @class = "col-md-4 control-label" })
+            <div class="col-md-4">
+                @Html.TextBoxFor(m => m.CurrentUser.Address.Postcode, new { @class = "form-control input-md", placeholder = "Enter your Postal code" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.CurrentUser.Address.Street, new { @class = "col-md-4 control-label" })
+            <div class="col-md-4">
+                @Html.TextBoxFor(m => m.CurrentUser.Address.Street, new { @class = "form-control input-md", placeholder = "Enter your Sreet name" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.CurrentUser.Address.HomeNumber, new { @class = "col-md-4 control-label" })
+            <div class="col-md-4">
+                @Html.TextBoxFor(m => m.CurrentUser.Address.HomeNumber, new { @class = "form-control input-md", placeholder = "Enter your Home number" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.CurrentUser.Address.ApartmentNumber, new { @class = "col-md-4 control-label" })
+            <div class="col-md-4">
+                @Html.TextBoxFor(m => m.CurrentUser.Address.ApartmentNumber, new { @class = "form-control input-md", placeholder = "Enter your Apartment number" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.CurrentUser.Phone, new { @class = "col-md-4 control-label" })
+            <div class="col-md-4">
+                @Html.TextBoxFor(m => m.CurrentUser.Phone, new { @class = "form-control input-md", placeholder = "Enter your Phone number" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="signup"></label>
+            <div class="col-md-4">
+                <input id="signup" type="submit" value="Sign Up" class="btn btn-success"/>
+            @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+                    {
+                        @Html.ActionLink("Back to List", "Users")
+                    }
+	        </div>
+        </div>
+    }
+</div>

@@ -1,0 +1,67 @@
+﻿@model PagedList.IPagedList<PVT.Shop.Infrastructure.Common.Storage>
+@using PagedList.Mvc;
+@using PVT.Shop.Infrastructure.Common
+
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3>All storages</h3>
+
+<div>
+    <div class="btn-group">
+        <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="glyphicon glyphicon-edit"></span>
+            @ViewBag.PageSize
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+            <li>@Html.ActionLink("3", "Index", "Storage", new { pageSize = 3 }, null)</li>
+            <li>@Html.ActionLink("5", "Index", "Storage", new { pageSize = 5 }, null)</li>
+            <li>@Html.ActionLink("10", "Index", "Storage", new { pageSize = 10 }, null)</li>
+        </ul>
+    </div>
+    <table class="table table-striped">
+        <tr>
+            <th>@Html.ActionLink("Name", "Index", "Storage", new { sortByNew = ViewBag.SortBy == SortByEnum.Name ? "NameDesc" : "Name", pageSize = ViewBag.PageSize }, null)</th>
+            <th>@Html.Label("Phone number")</th>
+            <th>@Html.ActionLink("Country", "Index", "Storage", new { sortByNew = ViewBag.SortBy == SortByEnum.Country ? "CountryDesc" : "Country", pageSize = ViewBag.PageSize }, null)</th>
+            <th>@Html.ActionLink("City", "Index", "Storage", new { sortByNew = ViewBag.SortBy == SortByEnum.City ? "CityDesc" : "City", pageSize = ViewBag.PageSize }, null)</th>
+            <th>@Html.Label("Actions")</th>
+        </tr>
+        @{
+            foreach (var storage in Model)
+            {
+                <tr>
+                    <td>@Html.HiddenFor(s => storage.Id)@Html.DisplayFor(s => storage.Name)</td>
+                    <td>@Html.DisplayFor(s => storage.PhoneNumber)</td>
+                    <td>@Html.DisplayFor(s => storage.Address.Country.Name)</td>
+                    <td>@Html.DisplayFor(s => storage.Address.City)</td>
+                    <td>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="glyphicon glyphicon-edit"></span>
+                                Actions
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLink("Show products", "Index", "Product", new { id = @storage.Id }, null)</li>
+                                <li>@Html.ActionLink("Detail", "Detail", "Storage", new { id = @storage.Id }, null)</li>
+                                <li>@Html.ActionLink("Edit", "Edit", "Storage", new { id = @storage.Id }, null)</li>
+                                <li>@Html.ActionLink("Delete", "Delete", "Storage", new { id = @storage.Id }, null)</li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+</div>
+
+<div>@Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortByNew = ViewBag.SortBy, pageSize = ViewBag.PageSize}))</div>
+
+<div>
+    @Html.ActionLink("Add Storage", "Edit", "Storage", new { @class = "btn btn-primary" })
+</div>

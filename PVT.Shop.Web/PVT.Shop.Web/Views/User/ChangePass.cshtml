@@ -1,0 +1,42 @@
+﻿@model PVT.Shop.Infrastructure.Common.ViewModels.ChangePassViewModel
+
+@if (ViewBag.ErrorSavingMessage)
+{
+    <div class="alert alert-danger" style="color: #b94a48">
+        <strong> Old password is incorrect! Please try again. </strong>
+    </div>
+}
+
+@if (ViewBag.SavedSuccessfullyMessage)
+{
+    <div class="alert alert-success">
+        <strong> Your password has been changed successfully! </strong>
+    </div>
+}
+
+@using (Html.BeginForm("ChangePass", "User", FormMethod.Post))
+{
+    <div class="col-md-6 col-md-offset-3">
+        <div class="validation-summary-errors">
+            @Html.ValidationSummary()
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.OldPassword)
+            @Html.TextBoxFor(m => m.OldPassword, new { @class = "form-control", placeholder = "Enter your old password", type = "password" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.NewPassword)
+            @Html.PasswordFor(m => m.NewPassword, new { @class = "form-control", placeholder = "Enter your new password", type = "password" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.ConfirmNewPassword)
+            @Html.PasswordFor(m => m.ConfirmNewPassword, new { @class = "form-control", placeholder = "Reenter your new password", type = "password" })
+        </div>
+
+        <button type="submit" class="btn btn-success btn-sm">Save</button>
+        @Html.ActionLink("Back to Personal Account", "PersonalAccount", "Account", null, new { @class = "btn btn-default", @style = "margin: 10px" })
+    </div>
+}

@@ -1,0 +1,66 @@
+﻿@model PVT.Shop.Infrastructure.Common.Storage
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3>Detail</h3>
+<div>
+    <table class="table table-striped">
+        <tr>
+            <th>@Html.Label("Property")</th>
+            <th>@Html.Label("Value")</th>
+        </tr>
+        <tr>
+            <td>@Html.HiddenFor(s => s.Id)@Html.Label("Storage name")</td>
+            <td>@Html.DisplayFor(s => s.Name)</td>
+        </tr>
+        <tr>
+            <td>@Html.Label("Phone number")</td>
+            <td>@Html.DisplayFor(s => s.PhoneNumber)</td>
+        </tr>
+        <tr>
+            <td>@Html.HiddenFor(s => s.Address.Id)@Html.HiddenFor(s => s.Address.Country.Id)@Html.Label("Country")</td>
+            <td>@Html.DisplayFor(s => s.Address.Country.Name)</td>
+        </tr>
+        <tr>
+            <td>@Html.Label("City")</td>
+            <td>@Html.DisplayFor(s => s.Address.City)</td>
+        </tr>
+        <tr>
+            <td>@Html.Label("Postcode")</td>
+            <td>@Html.DisplayFor(s => s.Address.Postcode)</td>
+        </tr>
+        <tr>
+            <td>@Html.Label("Street")</td>
+            <td>@Html.DisplayFor(s => s.Address.Street)</td>
+        </tr>
+        <tr>
+            <td>@Html.Label("Home number")</td>
+            <td>@Html.DisplayFor(s => s.Address.HomeNumber)</td>
+        </tr>
+        <tr>
+            <td>@Html.Label("Apartment number")</td>
+            <td>@Html.DisplayFor(s => s.Address.ApartmentNumber)</td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <div>
+                    <div class="btn btn-primary">
+                        @Html.ActionLink("Products in", "Index", "Product", new { id = @Model.Id }, new { style = "color: white; text-decoration: none; padding: 10px" })
+                    </div>
+                    <div class="btn btn-primary">
+                        @Html.ActionLink("Edit", "Edit", "Storage", new { id = @Model.Id }, new { style = "color: white; text-decoration: none; padding: 10px" })
+                    </div>
+                    <div class="btn btn-primary">
+                        @Html.ActionLink("Delete", "Delete", "Storage", new { id = @Model.Id }, new { style = "color: white; text-decoration: none; padding: 10px" })
+                    </div>
+                    <div class="btn btn-primary">
+                        @Html.ActionLink("Back to all", "Index", "Storage", null, new { style = "color: white; text-decoration: none; padding: 10px" })
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+

@@ -1,0 +1,49 @@
+﻿@model PVT.Shop.Infrastructure.Common.ViewModels.BasketViewModel
+
+@{
+    ViewBag.Title = "Basket info";
+}
+
+<h2>Your basket</h2>
+<table width="90%" align="center">
+    <thead>
+        <tr>
+            <th align="left">BasketItem</th>
+            <th align="center">Quantity</th>
+            <th align="right">Price</th>
+            <th align="right">Sum</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Basket.BasketItems)
+        {
+            <tr>
+                <td align="left">@item.Product.Name</td>
+                <td align="left">@item.Quantity</td>
+                <td align="left">@item.Product.Price.ToString()</td>
+                <td align="left">@((item.Quantity * item.Product.Price).ToString())</td>
+                <td>
+                    @using (Html.BeginForm("RemoveFromBasket", "Basket"))
+                    {
+                        @Html.Hidden("Id", item.Product.Id)
+                        @Html.HiddenFor(x => x.ReturnUrl)
+                        <input class="actionButtons" type="submit" value="Remove" />
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+
+            <td colspan="3" align="left"><h3>Total:</h3></td>
+            <td align="left">
+                <h3> @Model.Basket.GetItemsSum().ToString()</h3>
+            </td>
+
+        </tr>
+    </tfoot>
+</table>
+<p align="center" class="actionButtons">
+    <a href="@Model.ReturnUrl">Return to product list </a>
+</p>

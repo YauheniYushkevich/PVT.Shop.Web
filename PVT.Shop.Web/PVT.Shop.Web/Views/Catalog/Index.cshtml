@@ -1,0 +1,101 @@
+﻿@using PagedList.Mvc
+@model PagedList.IPagedList<PVT.Shop.Infrastructure.Common.Product>
+<div class="container">
+    <h2>Catalog</h2>
+
+    <ol class="breadcrumb">
+        <li>@Html.ActionLink("Catalog","Index","Catalog")</li>
+        @if (ViewBag.ParentCategory != null)
+        {
+            <li class="active">
+                @Html.ActionLink($"{ViewBag.ParentCategory}", "Index", "Catalog", new { id = ViewBag.ParentCategoryId }, null)
+            </li>
+        }
+        <li class="active">
+        @ViewBag.BreadCrumb
+    </ol>
+
+    <div class="col-xs-12 promo">
+        <div class="row" style="padding-top: 15px; padding-bottom: 15px;">
+            <div class="col-xs-4" style="text-align: center">
+                <img src="@ViewBag.CategoryIcon" alt="" width="150" />
+            </div>
+            <div class="col-xs-8">
+                @ViewBag.CategoryDescription
+                <div class="choice" style="padding-top: 30px">
+                    @if (ViewBag.Count > 0)
+                    {
+                        var word = ViewBag.CategoryId == 100 ? "Products" : "Models";
+                        <span>Choose anyone from @ViewBag.Count @word</span>
+                    }
+                    else
+                    {
+                        <span>According to your search criteria we found 0 products :( </span>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="wrapper">
+        <ul>
+            @foreach (var product in Model)
+            {
+                <li>
+                    <div class="item">
+                        <div class="item_img" style="height: 260px">
+                            <img src="@product.Image" alt="@product.Name">
+                        </div>
+                        <div class="item_info">
+                            <h3 class="item_title">@product.Name</h3>
+                            <div class="item_border"></div>
+                            <span class="informer_category">Category: @product.CurrentCategory.Name</span>
+                            <div class="item_border"></div>
+                            <p class="item_text">@product.Description</p>
+                            <p class="item_seller">Seller: @product.CurrentUser.FirstName @product.CurrentUser.LastName</p>
+                            <div class="item_border"></div>
+                        </div>
+                        <div class="informer ">
+                            <span class="informer_date">Added: 17 january, 2012</span>
+                            <p class="informer_price">Price: @product.Price $</p>
+                        </div>
+                    </div>
+
+                    <div class="item_action">
+                        <a href="#" class="btn btn-success"><i class="fa fa-cart-plus"></i> Add to Cart</a>
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
+
+    @if (Model.PageCount > 1 & ViewBag.BreadCrumb != "Search Result")
+    {
+        <div class="pager">
+            @Html.PagedListPager(Model, page => Url.Action("Index", new
+       {
+           page,
+           sortOrder = ViewBag.currentSort,
+           id = ViewBag.CategoryId
+       }))
+            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+        </div>
+    }
+    else
+    {
+        <div class="pager">
+            @Html.PagedListPager(Model, page => Url.Action("Search", new
+       {
+           page,
+           sortOrder = ViewBag.currentSort,
+           q = ViewBag.SearchQuery
+       }))
+            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+        </div>
+    }
+
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/ProductHeight")
+}

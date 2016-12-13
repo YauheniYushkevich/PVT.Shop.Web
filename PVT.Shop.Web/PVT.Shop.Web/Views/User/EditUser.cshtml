@@ -1,0 +1,155 @@
+﻿@model PVT.Shop.Infrastructure.Common.User
+
+@{
+    ViewBag.Title = "Edit User";
+}
+
+@Styles.Render("~/Content/css")
+@Scripts.Render("~/bundles/modernizr")
+
+<div class="container">
+    <h3>@ViewBag.Title</h3>
+    <hr/>
+
+    @if (ViewBag.SavedSuccessfullyMessage == true)
+    {
+        <div class="alert alert-success">
+            <strong>Your data was successfully saved!</strong>
+        </div>
+    }
+    @if (ViewBag.ErrorSavingMessage == true)
+    {
+        <div class="alert alert-danger">
+            <strong> Check out your data! </strong>
+        </div>
+    }
+
+    @using (Html.BeginForm("EditUser", "User", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        <div class="validation-summary-errors">
+            @Html.ValidationSummary()
+        </div>
+        <div class="form-group">
+            @Html.HiddenFor(m => m.Id)
+            @Html.LabelFor(m => m.FirstName, new {@class = "col-md-4 control-label"})
+            <div class="col-md-4">
+                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control input-md", placeholder = "Enter your First Name" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.LastName, new {@class = "col-md-4 control-label" })
+            <div class="col-md-4">
+                @Html.TextBoxFor(m => m.LastName, new { @class = "form-control input-md", placeholder = "Enter your Last Name" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Birthday, new {@class = "col-md-4 control-label"})
+            <div class="col-md-4">
+                @Html.TextBoxFor(m => m.Birthday, new { @class = "form-control input-md", type = "Date" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Gender, new {@class = "col-md-4 control-label"})
+            <div class="col-md-4">
+                @Html.EnumDropDownListFor(m => m.Gender, new { @class = "form-control input-md" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Email, new { @class = "col-md-4 control-label" })
+            <div class="col-md-4">
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control input-md", placeholder = "Enter your Email adress" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Login, new { @class = "col-md-4 control-label" })
+            <div class="col-md-4">
+                @Html.TextBoxFor(m => m.Login, new { @class = "form-control input-md", placeholder = "Enter your Login Name" })
+            </div>
+        </div>
+
+        ///TODO: пункт доступен при редактировании АДМИНОМ
+        if (Request.IsAuthenticated && User.IsInRole("Admin"))
+        {
+            <div class="form-group">
+                @Html.LabelFor(m => m.Role, new { @class = "col-md-4 control-label" })
+                <div class="col-md-4">
+                    @Html.EnumDropDownListFor(m => m.Role, new { @class = "form-control input-md" })
+                </div>
+            </div>
+        }
+        <hr>
+
+        <div class="form-group">
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.Address, new { @class = "col-md-4 control-label" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.HiddenFor(m => m.Address.Id)
+            @Html.HiddenFor(m => m.Address.Country.Id)
+            @Html.LabelFor(m => m.Address.Country.Name, new { @class = "col-md-4 control-label" })
+            <div class="col-md-4">
+                @Html.TextBoxFor(m => m.Address.Country.Name, new { @class = "form-control input-md" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Address.City, new { @class = "col-md-4 control-label" })
+            <div class="col-md-4">
+                @Html.TextBoxFor(m => m.Address.City, new { @class = "form-control", placeholder = "Enter your City name" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Address.Postcode, new { @class = "col-md-4 control-label" })
+            <div class="col-md-4">
+                @Html.TextBoxFor(m => m.Address.Postcode, new { @class = "form-control input-md", placeholder = "Enter your Postal code" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Address.Street, new { @class = "col-md-4 control-label" })
+            <div class="col-md-4">
+                @Html.TextBoxFor(m => m.Address.Street, new { @class = "form-control input-md", placeholder = "Enter your Sreet name" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Address.HomeNumber, new { @class = "col-md-4 control-label" })
+            <div class="col-md-4">
+                @Html.TextBoxFor(m => m.Address.HomeNumber, new { @class = "form-control input-md", placeholder = "Enter your Home number" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Address.ApartmentNumber, new { @class = "col-md-4 control-label" })
+            <div class="col-md-4">
+                @Html.TextBoxFor(m => m.Address.ApartmentNumber, new { @class = "form-control input-md", placeholder = "Enter your Apartment number" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Phone, new { @class = "col-md-4 control-label" })
+            <div class="col-md-4">
+                @Html.TextBoxFor(m => m.Phone, new { @class = "form-control input-md", placeholder = "Enter your Phone number" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="signup"></label>
+            <div class="col-md-4">
+                <input type="submit" value="Save" class="btn btn-success" style="width: 45%"/>
+                @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+                {
+                    @Html.ActionLink("Back to List", "Users", null, new { @class = "btn btn-default", @style = "width: 45%; margin: 10px" })
+                }
+                @Html.ActionLink("Back to Personal Account", "PersonalAccount", "Account", null, new { @class = "btn btn-default", @style = "margin: 10px" })
+            </div>
+        </div>
+    }
+</div>

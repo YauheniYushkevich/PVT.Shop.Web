@@ -1,0 +1,36 @@
+﻿@using PVT.Shop.Infrastructure.Common
+@model PVT.Shop.Infrastructure.Common.ViewModels.UserInfoViewModel
+
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+<i class="fa fa-user"></i>@Model.UserLogin
+    <span class="caret"></span>
+    @{
+        var userAvatar = Model.UserSex == Gender.Man ? "/Content/Images/male.png" : "/Content/Images/female.png";
+    }
+</a>
+<ul class="dropdown-menu" style="min-width: 250px; text-align: center; padding-bottom: 10px">
+    <li>
+        <img class="img" src="@userAvatar" alt="" width="80" style="padding-top: 10px" />
+        <span class="label label-info user_custom_label">@Model.UserRole.ToString()</span>
+    </li>
+    <li>
+        <h4>@Html.ActionLink(@Model.UserFullName, "PersonalAccount", "Account") </h4>
+        @Model.UserLogin
+    </li>
+    <li class="user_adress__item">
+        @Model.UserShortAdress <i class="fa fa-map-marker"></i>
+    </li>
+    <li class="user_info__item">
+        <i class="fa fa-envelope-o" aria-hidden="true"></i> @Model.UserEmail
+    </li>
+    <li class="user_info__item">
+        <i class="fa fa-birthday-cake" aria-hidden="true"></i> @Model.UserBirthday
+    </li>
+    <li class="user_info__item">
+        <i class="fa fa-phone" aria-hidden="true"></i> @Model.UserPhone
+    </li>
+    <li role="separator" class="divider" style="margin-top: 20px"></li>
+    <li>
+        @Html.ActionLink("Logout", "LogOut", "Account")
+    </li>
+</ul>

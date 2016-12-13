@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PVT.Shop.Web", "PVT.Shop.Web\PVT.Shop.Web.csproj", "{8844519D-D113-4CF6-96CE-DBA750D0F306}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PVT.Shop.Infrastructure", "PVT.Shop.Infrastructure\PVT.Shop.Infrastructure.csproj", "{46DFAA3B-7802-4254-BE94-1F3E24FFEC07}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8844519D-D113-4CF6-96CE-DBA750D0F306}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8844519D-D113-4CF6-96CE-DBA750D0F306}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8844519D-D113-4CF6-96CE-DBA750D0F306}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8844519D-D113-4CF6-96CE-DBA750D0F306}.Release|Any CPU.Build.0 = Release|Any CPU
+		{46DFAA3B-7802-4254-BE94-1F3E24FFEC07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46DFAA3B-7802-4254-BE94-1F3E24FFEC07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46DFAA3B-7802-4254-BE94-1F3E24FFEC07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46DFAA3B-7802-4254-BE94-1F3E24FFEC07}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

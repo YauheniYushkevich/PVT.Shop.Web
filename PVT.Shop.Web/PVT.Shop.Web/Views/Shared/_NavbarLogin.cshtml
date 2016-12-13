@@ -1,0 +1,23 @@
+﻿@model PVT.Shop.Infrastructure.Common.ViewModels.LoginUserViewModel
+
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i> Login<span class="caret"></span></a>
+<ul class="dropdown-menu">
+    @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "navbar_login__form" }))
+    {
+        <div class="form-group">
+            @Html.LabelFor(m => m.UserName)
+            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", placeholder = "Username", type = "text" })
+            @Html.ValidationMessageFor(m => m.UserName)
+        </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Password)
+        @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Password", type = "password" })
+        @Html.ValidationMessageFor(m => m.UserName)
+    </div>
+
+        <button type="submit" class="btn btn-success btn-sm">Sign In</button>
+        @Html.ActionLink("Sign Up", "RegistrationUser", "User", null, new { @class = "btn btn-primary btn-sm pull-right" })
+    }
+</ul>
+

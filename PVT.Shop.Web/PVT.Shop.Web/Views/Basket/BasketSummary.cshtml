@@ -1,0 +1,14 @@
+﻿@model PVT.Shop.Infrastructure.Common.Basket
+
+<div id="Basket">
+    <span class="caption">
+        <b>Your Basket:</b>
+        @Model.BasketItems.Sum(x => x.Quantity) BasketItem(s),
+        @Model.GetItemsSum().ToString()
+    </span>
+    @Html.ActionLink("Create Order", "Index", "Basket", new
+{
+    returnUrl =
+Request.Url.PathAndQuery
+}, null)
+</div>

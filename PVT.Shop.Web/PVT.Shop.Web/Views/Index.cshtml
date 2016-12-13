@@ -1,0 +1,30 @@
+﻿@model PVT.Shop.Web.Models.Basket.BasketItem
+
+@{
+    Layout = null;
+}
+
+@using (Html.BeginForm())
+{
+    @Html.LabelFor(b => b.Id)
+    @Html.LabelFor(b => b.ItemCost)
+    @Html.EditorFor(b => b.ItemQuantity)
+    
+}
+<div class="btn-group" role="group" aria-label="...">
+    <button type="button" class="btn btn-default">Left</button>
+    <button type="button" class="btn btn-default">Middle</button>
+    <button type="button" class="btn btn-default">Right</button>
+</div>
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-widCategoryth" />
+    <title>Index</title>
+</head>
+<body>
+    <div> 
+    </div>
+</body>
+</html>

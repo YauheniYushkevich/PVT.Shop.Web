@@ -1,0 +1,114 @@
+﻿@using System.Web.Mvc.Html
+@using PagedList.Mvc
+@using PVT.Shop.Web.Extensions
+@model PagedList.IPagedList<PVT.Shop.Infrastructure.Common.Order>
+@Styles.Render("~/Content/Site.css")
+@Scripts.Render("~/bundles/jquery")
+
+@foreach (var item in Model)
+{
+    <div>
+
+        <div class="spoiler-block">
+            <div class="spoiler-title">
+                <table style="width:100%; text-align:center">
+                    <tr>
+                        <td><b>Order № @item.Id @Html.ActionLink("Detail", "Index")</b></td>
+                        <td><b>Product count</b></td>
+                        <td><b>Deliverd</b></td>
+                        <td><b>Total cost</b></td>
+                        <td rowspan="2" valign="middle">
+                            <div class="btn btn-danger">
+                                @Html.ActionLink("Delete", "DeleteOrder", "Order", new { id = item.Id }, null)
+                            </div>
+                        </td>
+                        @* <td>@Html.ActionLink("Delete", "DeleteOrder", "Order", new { id = item.Id }, null)</td>*@
+                    </tr>
+                    <tr>
+                        <td>Дата  @item.DateAdded</td>
+                        <td>5</td>
+                        <td>@item.Delivered</td>
+                        <td>500</td>
+
+                    </tr>
+                </table>
+            </div>
+            <a href="#" class="spoiler-explore">+</a>
+            @*<a href="#" class="spoiler-title">Спойлер </a>*@
+
+            <div class="spoiler-content" style="white-space: nowrap">
+                <div style="display:inline-block">
+                    <b>Adreess:</b>
+                    <table>
+                        <tr>
+                            <td><b>Country</b></td>
+                            <td><b>@item.Delivery.Country</b></td>
+                        </tr>
+                        <tr>
+                            <td><b>City</b></td>
+                            <td>@item.Delivery.City</td>
+                        </tr>
+                        <tr>
+                            <td><b>Street</b></td>
+                            <td>@item.Delivery.Street</td>
+                        </tr>
+                        <tr>
+                            <td><b>HomeNumber</b></td>
+                            <td>@item.Delivery.HomeNumber</td>
+                        </tr>
+                        <tr>
+                            <td><b>ApartmentNumber</b></td>
+                            <td>@item.Delivery.ApartmentNumber</td>
+                        </tr>
+                        <tr>
+                            <td><b>Postcode</b></td>
+                            <td>@item.PhoneNumber</td>
+                        </tr>
+                        <tr>
+                            <td><b>Postcode</b></td>
+                            <td>@item.Delivery.Postcode</td>
+                        </tr>
+                    </table>
+                </div>
+                <div div style="display:inline-block">
+                    <table style="width:100%; text-align:center">
+                        <tr>
+                            <td><b>Product Name</b></td>
+                            <td><b>Count</b></td>
+                            <td><b>Cost</b></td>
+                        </tr>
+                        @foreach (var product in item.BasketProductID)
+                        {
+
+                            <tr>
+                                <td>@product.ProductName   </td>
+                                <td>@product.ProductCount</td>
+                                <td>@product.TotalCost</td>
+                            </tr>
+                        }
+                        <tr> <td colspan="3">Общая стоимость: $$</td>   </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@if (Model.PageCount > 1)
+{
+    <div class="pager">
+        @Html.PagedListPager(Model, page => Url.Action("Index", new
+   {
+       page,
+       // sortOrder = ViewBag.currentSort
+   }))
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+    </div>
+}
+<script>
+$(document).ready(function() {
+    $('.spoiler-explore').click(function () {
+        $(this).parent().children('div.spoiler-content').toggle('fast');
+        return false;
+    });
+});
+</script>

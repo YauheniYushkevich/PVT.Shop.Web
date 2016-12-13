@@ -1,0 +1,48 @@
+﻿@using System.Diagnostics
+@using PVT.Shop.Infrastructure.Common
+@model Category
+@{
+    Debug.Assert(Model.Childs != null, "Model.Childs != null");
+}
+@if (Model.Childs.Count == 0)
+{
+    <li>
+        <a href="@Url.Action("CategoryProducts", new { id = Model.Id })">
+            <img src=@(Model.Icon) alt="" width="35" style="padding-right: 10px"/> @Model.Name
+        </a>
+    </li>
+}
+else
+{
+    if (Model.Id == 1)
+    {
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@Model.Name<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+            <li>
+                <a href="@Url.Action("CategoryProducts", new { id = Model.Id })">
+                    <img src=@(Model.Icon) alt="" width="35" style="padding-right: 10px"/> All
+                </a>
+            </li>
+            <li class="divider"></li>
+            @foreach (var category in Model.Childs)
+            {
+                Html.RenderPartial("Catalog", category);
+            }
+        </ul>
+    }
+    else
+    {
+        <li class="dropdown-submenu">
+            <a href="@Url.Action("CategoryProducts", new { id = Model.Id })">
+                <img src=@(Model.Icon) alt="" width="35" style="padding-right: 10px" /> @Model.Name
+            </a>
+            <ul class="dropdown-menu">
+                @foreach (var category in Model.Childs)
+                {
+                    Html.RenderPartial("Catalog", category);
+                }
+            </ul>
+        </li>
+    }
+}
+ 

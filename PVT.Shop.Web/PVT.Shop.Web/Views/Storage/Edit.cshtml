@@ -1,0 +1,65 @@
+﻿@model PVT.Shop.Infrastructure.Common.ViewModels.StorageViewModel
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3>Edit storage info</h3>
+
+@using(Html.BeginForm())
+{
+
+    <table class="table table-striped">
+        <tr>
+            <th>Property</th>
+            <th>Value</th>
+        </tr>
+        <tr>
+            <td>@Html.HiddenFor(s => s.Storage.Id)@Html.LabelFor(s => s.Storage.Name)</td>
+            <td>@Html.TextBoxFor(s => s.Storage.Name, null, new {@class = "form-control"})</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(s => s.Storage.PhoneNumber)</td>
+            <td>@Html.TextBoxFor(s => s.Storage.PhoneNumber, null, new { @class = "form-control" })</td>
+        </tr>
+        <tr>
+            <td> @Html.HiddenFor(s => s.Storage.Address.Id)@Html.LabelFor(s => s.Storage.Address.Country.Name)</td>
+            <td>
+                @Html.DropDownListFor(s => s.Storage.Address.Country,
+                             new SelectList(Model.Countries.Select(c => new { Text = c.Name, Value = c.Id.ToString() }), "Value", "Text"),
+                             new { @class = "form-control" })
+            </td>
+        </tr>
+        <tr>
+            <td> @Html.LabelFor(s => s.Storage.Address.Postcode)</td>
+            <td> @Html.TextBoxFor(s => s.Storage.Address.Postcode, null, new { @class = "form-control" })</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(s => s.Storage.Address.City)</td>
+            <td>@Html.TextBoxFor(s => s.Storage.Address.City, null, new { @class = "form-control" })</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(s => s.Storage.Address.Street)</td>
+            <td>@Html.TextBoxFor(s => s.Storage.Address.Street, null, new { @class = "form-control" })</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(s => s.Storage.Address.HomeNumber)</td>
+            <td>@Html.TextBoxFor(s => s.Storage.Address.HomeNumber, null, new { @class = "form-control" })</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(s => s.Storage.Address.ApartmentNumber)</td>
+            <td>@Html.TextBoxFor(s => s.Storage.Address.ApartmentNumber, null, new { @class = "form-control" })</td>
+        </tr>
+    </table>
+        <div>
+            @Html.Input("submit", "Save", "Save", "btn btn-success")
+        </div>
+        <br />
+        <div>
+            @Html.ValidationSummary()
+        </div>
+}
+<br />
+<div>@ViewBag.Message</div>
+

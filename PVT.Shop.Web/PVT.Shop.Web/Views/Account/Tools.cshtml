@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewBag.Title = "Tools";
+}
+
+<h2>Onliner Parser</h2>
+
+<h4 style="padding-top: 30px">Electronics</h4>
+<div class="row" style="padding-left: 30px">
+    @Ajax.ActionLink("Load Phones from Onliner", "LoadProductFromOnliner", "Product", new { category = "mobile", categoryId = 2, storageId = 1 }, new AjaxOptions { HttpMethod = "GET", LoadingElementId = "loading" }, new { @class = "btn btn-primary loaderbtn" })
+    @Ajax.ActionLink("Load 3G Modems from Onliner", "LoadProductFromOnliner", "Product", new { category = "3gmodem", categoryId = 3, storageId = 1 }, new AjaxOptions { HttpMethod = "GET", LoadingElementId = "loading" }, new { @class = "btn btn-primary loaderbtn" })
+    @Ajax.ActionLink("Load Notebooks from Onliner", "LoadProductFromOnliner", "Product", new { category = "notebook", categoryId = 4, storageId = 1 }, new AjaxOptions { HttpMethod = "GET", LoadingElementId = "loading" }, new { @class = "btn btn-primary loaderbtn" })
+</div>
+
+<h4 style="padding-top: 30px">Appliances</h4>
+<div class="row" style="padding-left: 30px">
+    @Ajax.ActionLink("Load Refrigerators from Onliner", "LoadProductFromOnliner", "Product", new { category = "refrigerator", categoryId = 6, storageId = 2 }, new AjaxOptions { HttpMethod = "GET", LoadingElementId = "loading" }, new { @class = "btn btn-primary loaderbtn" })
+    @Ajax.ActionLink("Load Coffee Machines from Onliner", "LoadProductFromOnliner", "Product", new { category = "coffee", categoryId = 7, storageId = 2 }, new AjaxOptions { HttpMethod = "GET", LoadingElementId = "loading" }, new { @class = "btn btn-primary loaderbtn" })
+    @Ajax.ActionLink("Load Vacuum Cleaners from Onliner", "LoadProductFromOnliner", "Product", new { category = "vacuumcleaner", categoryId = 8, storageId = 2 }, new AjaxOptions { HttpMethod = "GET", LoadingElementId = "loading" }, new { @class = "btn btn-primary loaderbtn" })
+</div>
+
+<h4 style="padding-top: 30px">Building and repairing</h4>
+<div class="row" style="padding-left: 30px">
+    @Ajax.ActionLink("Load Drills from Onliner", "LoadProductFromOnliner", "Product", new { category = "rotaryhammers", categoryId = 10, storageId = 1 }, new AjaxOptions { HttpMethod = "GET", LoadingElementId = "loading" }, new { @class = "btn btn-primary loaderbtn" })
+    @Ajax.ActionLink("Load Vinyl Windows from Onliner", "LoadProductFromOnliner", "Product", new { category = "vynilwindows", categoryId = 11, storageId = 2 }, new AjaxOptions { HttpMethod = "GET", LoadingElementId = "loading" }, new { @class = "btn btn-primary loaderbtn" })
+    @Ajax.ActionLink("Load Toolboxes from Onliner", "LoadProductFromOnliner", "Product", new { category = "toolbox", categoryId = 12, storageId = 1 }, new AjaxOptions { HttpMethod = "GET", LoadingElementId = "loading" }, new { @class = "btn btn-primary loaderbtn" })
+</div>
+
+
+<div class="loader" id="loading" style="display: none"></div>
+<div class="loaderscreen" style="display: none"></div>

@@ -1,0 +1,109 @@
+﻿@model IEnumerable<PVT.Shop.Infrastructure.Common.Order>
+
+
+
+@*@Styles.Render("~/Content/css")*@
+
+@*@{
+        ViewBag.Title = "Index";
+    }*@
+
+
+
+@foreach (var item in Model)
+{
+    <ul>
+        <li>@item.Id</li>
+        <li>
+            Товары
+            <ul>
+                @foreach (var product in item.BasketProductID)
+                {
+                    <li>@product.ProductName -  @product.ProductCount - @product.Discount - @product.TotalCost</li>
+                }
+            </ul>
+
+        </li>
+        <li>Адрес:</li>
+        <li>@item.DateAdded</li>
+        <li>@item.Delivery.City</li>
+        <li>@item.Delivery.Country</li>
+        <li>@item.Delivery.Street</li>
+        <li>@item.Delivered</li>
+        @*<li>@item.Delivery.Country</li>
+            <li>@item.Delivery.City</li>
+            <li>@item.Delivery.ApartmentNumber</li>*@
+        <li>@item.UserId</li>
+        <li>@Html.ActionLink("Delete Order", "DeleteOrder", "Order", new { id = item.Id }, null)</li>
+
+    </ul>
+    <br>
+}
+@*<div id="signup-form">
+    <div id="signup-inner">
+        <div class="clearfix" id="header">
+            <img id="signup-icon" src="./images/signup.png" alt="" />
+            <h1>ЗАКАЗ № @Html.DisplayFor(m => m.Id)</h1>
+        </div>
+        <div class="row" class="h3">
+            <table width="90%" align="center">
+                <thead>
+                    <tr>
+                        @foreach (var item in Model.OrderItems)
+                        {
+                            //   <p>item.ItemGood item.</p>
+                            int i = 0;
+
+                            <td>@i</td>
+                            <td>  @Html.DisplayFor(m => m.OrderItems[i].Product.Name)</td>
+                            <td> @Html.DisplayFor(m => m.OrderItems[i].Product.Price)</td>
+                            <td>  @Html.DisplayFor(m => m.OrderItems[i].Quantity)</td>
+                            i++;
+
+                        }
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <div class="row">
+            <p><b>Количество товаров: @Html.DisplayFor(m => m.TotalQuantity)</b></p>
+        </div>
+        <div class="row">
+            <p><b>Стоимость товара составляет: @ViewBag.TotalCost</b></p>
+        </div>
+        <div class="row">
+            <p><b>Пожалуйста введите данные для оформления заказа:</b></p>
+        </div>
+
+        @using (Html.BeginForm())
+        {
+
+            <div class="row">
+                <div>
+                    <p>
+                        <label for="name">Адрес *</label>
+                        @Html.EditorFor(m => m.Delivery.Adress)
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div>
+                    <p>
+                        <label for="name">Телефон для связи *</label>
+                        @Html.EditorFor(m => m.Delivery.Phone)
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    @Html.EditorFor(m => m.Delivery.DeliveryType)
+                    @*Html.DropDownListFor(m => m.DeliveryType);*@
+@*</div>
+                </div>
+                <input type="submit" value="Заказать" id="submit">
+            }
+        </div>
+    </div>*@
+
+
+
